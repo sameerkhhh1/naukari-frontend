@@ -52,7 +52,16 @@ const Jobs = () => {
     } finally {
       setLoading(false);
     }
-  }, [setLoading, setData]);
+  }, [
+    setLoading,
+    setData,
+    salary,
+    selectedExp,
+    selectedLocation,
+    selectedSearch,
+    selectedSort,
+    selectedType,
+  ]);
   // console.log(selectedExp, "expppppp");
   useEffect(() => {
     render();
