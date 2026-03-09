@@ -28,7 +28,7 @@ const Login = () => {
         localStorage.setItem("role", responce.data.role);
         localStorage.setItem("token", responce.data.token);
         let role = localStorage.getItem("role");
-        if (role == "admin") {
+        if (role === "admin") {
           navigate("/admin");
         } else {
           navigate("/home");

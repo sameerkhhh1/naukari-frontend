@@ -28,6 +28,7 @@ const Navbar = () => {
         <img
           style={{ height: "50px", width: "120px", objectFit: "cover" }}
           src="https://imgs.search.brave.com/USY48gQD8U6dBflqpUVoX3ReGIjDkMKzzT8knSsyQ-E/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Vla2xvZ28u/Y29tL2xvZ28tcG5n/LzYxLzEvbmF1a3Jp/LWxvZ28tcG5nX3Nl/ZWtsb2dvLTYxNjQ1/Ny5wbmc"
+          alt="naukari-logo"
         ></img>
         <Link style={{ textDecoration: "none", fontSize: "20px" }} to={"/"}>
           Signup

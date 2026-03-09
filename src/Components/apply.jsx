@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { IoLocationOutline } from "react-icons/io5";
+
 import { FaReact, FaNodeJs, FaLaptopCode, FaPaintBrush } from "react-icons/fa";
-import { GiAbstract031 } from "react-icons/gi";
+
 const Apply = () => {
   let [loading, setLoading] = useState(false);
   let [data, setData] = useState([]);

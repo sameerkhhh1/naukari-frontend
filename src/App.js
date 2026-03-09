@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import SignUp from "./Components/signUp";
 import Login from "./Components/login";
@@ -24,7 +23,7 @@ function App() {
   function AdminRoute({ children }) {
     let storedRole = localStorage.getItem("role");
     let token = localStorage.getItem("token");
-    if (token && storedRole == "admin") {
+    if (token && storedRole === "admin") {
       return children;
     } else {
       return <h1>Protected Route, The admin only access this route</h1>;
