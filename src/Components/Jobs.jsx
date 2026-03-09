@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import axios from "axios";
 import { FaReact, FaNodeJs, FaLaptopCode, FaPaintBrush } from "react-icons/fa";
 
@@ -22,7 +22,7 @@ const Jobs = () => {
   const [selectedSearch, setSelectedSearch] = useState("");
 
   const navigate = useNavigate();
-  const render = async () => {
+  const render = useCallback(async () => {
     try {
       setLoading(true);
 
@@ -52,7 +52,7 @@ const Jobs = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [setLoading, setData]);
   // console.log(selectedExp, "expppppp");
   useEffect(() => {
     render();
