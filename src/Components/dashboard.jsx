@@ -14,7 +14,6 @@ const Dashboard = () => {
   let [username, setUsername] = useState("");
   useEffect(() => {
     setUsername(localStorage.getItem("username"));
-    console.log(username, "usernameeeeee");
   }, []);
   return (
     <div

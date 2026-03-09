@@ -56,7 +56,7 @@ const Jobs = () => {
   // console.log(selectedExp, "expppppp");
   useEffect(() => {
     render();
-  }, [selectedExp, selectedSort]);
+  }, [selectedExp, selectedSort, render]);
 
   const handleApply = async (id) => {
     try {
