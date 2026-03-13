@@ -1,117 +1,84 @@
 import React, { useState } from "react";
 import axios from "axios";
+import * as Yup from "yup";
+import "./SignUp.css";
+
 const SignUp = () => {
-  let [name, setName] = useState("");
-  let [email, setEmail] = useState("");
-  let [password, setPassword] = useState("");
-  let [loading, setLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const signupSchema = Yup.object({
+    name: Yup.string().required("Name required"),
+
+    email: Yup.string().email("Invalid email").required("Email required"),
+
+    password: Yup.string()
+      .min(6, "Password min 6 characters")
+      .required("Password required"),
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let formData = {
-      name: name,
-      email: email,
-      password: password,
-    };
+
+    const formData = { name, email, password };
 
     try {
+      await signupSchema.validate(formData);
+
       setLoading(true);
-      let responce = await axios.post(
-        "https://naukari-bakend.vercel.app/auth/signUp",
+
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/auth/signup`,
         formData,
       );
-      if (responce.status === 200) {
-        alert("sign up successfulyy");
-        setLoading(false);
+
+      if (response.status === 200) {
+        alert("Signup successful");
       }
     } catch (error) {
-      setLoading(false);
-      alert("signUp failed");
-      console.log(error);
+      if (error.name === "ValidationError") {
+        alert(error.message);
+      } else {
+        alert("Signup failed");
+      }
     } finally {
       setLoading(false);
     }
   };
-  if (loading) return <h1>Loading...</h1>;
+
+  if (loading) return <h1 className="loading">Loading...</h1>;
+
   return (
-    <div
-      style={{
-        // border: "2px solid black",
-        height: "90vh",
-        width: "97vw",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          width: "420px",
-          padding: "30px",
-          borderRadius: "10px",
-          backgroundColor: "#ffffff",
-          boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-          textAlign: "center",
-          height: "300px",
-        }}
-      >
+    <div className="signup-container">
+      <div className="signup-card">
         <h1>SignUp</h1>
+
         <form onSubmit={handleSubmit}>
           <input
-            style={{
-              padding: "12px",
-              marginBottom: "15px",
-              fontSize: "16px",
-              borderRadius: "6px",
-              border: "1px solid #ccc",
-              width: "300px",
-            }}
-            value={name}
+            className="signup-input"
             placeholder="Enter your name"
+            value={name}
             onChange={(e) => setName(e.target.value)}
-          ></input>
+          />
+
           <input
-            style={{
-              padding: "12px",
-              marginBottom: "15px",
-              fontSize: "16px",
-              borderRadius: "6px",
-              border: "1px solid #ccc",
-              width: "300px",
-            }}
-            value={email}
+            className="signup-input"
             placeholder="Enter your email"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
-          ></input>
+          />
+
           <input
-            style={{
-              padding: "12px",
-              width: "300px",
-              marginBottom: "15px",
-              fontSize: "16px",
-              borderRadius: "6px",
-              border: "1px solid #ccc",
-            }}
-            value={password}
+            className="signup-input"
+            type="password"
             placeholder="Enter your password"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
-          ></input>
-          <br></br>
-          <button
-            type="submit"
-            style={{
-              border: "none",
-              outline: "none",
-              cursor: "pointer",
-              width: "130px",
-              padding: "10px",
-              height: "40px",
-              color: "white",
-              backgroundColor: "green",
-              fontSize: "18px",
-              borderRadius: "10px",
-            }}
-          >
+          />
+
+          <button className="signup-btn" type="submit">
             SignUp
           </button>
         </form>

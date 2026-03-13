@@ -1,0 +1,95 @@
+.navbar {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-radius: 0px 10px 50px 0px;
+  padding: 0 20px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 70px;
+}
+
+.logo {
+  height: 50px;
+  width: 120px;
+  object-fit: cover;
+}
+
+.nav-left a {
+  text-decoration: none;
+  font-size: 20px;
+  color: black;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logout-btn {
+  text-decoration: none;
+  font-size: 18px;
+  border: 1px solid blue;
+  background-color: #0156c7;
+  color: white;
+  width: 100px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .nav-left {
+    gap: 15px;
+  }
+
+  .nav-left a {
+    font-size: 16px;
+  }
+
+  .logo {
+    width: 90px;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  .nav-left {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-right {
+    margin-top: 10px;
+  }
+}
+@media (max-width: 480px) {
+  .nav-left {
+    gap: 10px;
+  }
+
+  .nav-left a {
+    font-size: 14px;
+  }
+
+  .logout-btn {
+    width: 80px;
+    font-size: 14px;
+  }
+}

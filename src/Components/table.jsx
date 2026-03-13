@@ -1,20 +1,12 @@
 import React from "react";
+import "./Table.css";
 
 const Table = () => {
   return (
-    <div
-      style={{
-        width: "auto",
-        margin: "0px auto",
-        padding: "10px",
-        borderRadius: "10px",
-        // boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-        background: "#fff",
-      }}
-    >
-      <table style={{ width: "100%", borderCollapse: "collapse" }}>
+    <div className="table-container">
+      <table>
         <thead>
-          <tr style={{ textAlign: "left", borderBottom: "1px solid #ddd" }}>
+          <tr>
             <th>Job Role</th>
             <th>Company</th>
             <th>Status</th>
@@ -23,60 +15,36 @@ const Table = () => {
         </thead>
 
         <tbody>
-          <tr style={{ borderBottom: "1px solid #eee" }}>
+          <tr>
             <td>Frontend Developer</td>
             <td>Tech Corp</td>
+
             <td>
-              <span
-                style={{
-                  background: "#f3e8ff",
-                  color: "#9333ea",
-                  padding: "4px 8px",
-                  borderRadius: "8px",
-                  fontSize: "12px",
-                }}
-              >
-                Pending
-              </span>
+              <span className="status pending">Pending</span>
             </td>
+
             <td>2 days ago</td>
           </tr>
 
-          <tr style={{ borderBottom: "1px solid #eee" }}>
+          <tr>
             <td>UI/UX Designer</td>
             <td>Design Studio</td>
+
             <td>
-              <span
-                style={{
-                  background: "#dcfce7",
-                  color: "#15803d",
-                  padding: "4px 8px",
-                  borderRadius: "8px",
-                  fontSize: "12px",
-                }}
-              >
-                Selected
-              </span>
+              <span className="status selected">Selected</span>
             </td>
+
             <td>1 week ago</td>
           </tr>
 
           <tr>
             <td>Marketing Exec</td>
             <td>MarketHub</td>
+
             <td>
-              <span
-                style={{
-                  background: "#fee2e2",
-                  color: "#b91c1c",
-                  padding: "4px 8px",
-                  borderRadius: "8px",
-                  fontSize: "12px",
-                }}
-              >
-                Rejected
-              </span>
+              <span className="status rejected">Rejected</span>
             </td>
+
             <td>3 weeks ago</td>
           </tr>
         </tbody>

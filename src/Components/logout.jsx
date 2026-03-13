@@ -1,38 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Logout.css";
 
 const Logout = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const [name, setName] = useState("");
 
-  let [name, setName] = useState("");
   useEffect(() => {
-    let username = localStorage.getItem("username");
+    const username = localStorage.getItem("username");
     setName(username);
   }, []);
+
   function handleLogout() {
     localStorage.removeItem("token");
     localStorage.removeItem("username");
     localStorage.removeItem("role");
+
     alert("Logout Successfully");
+
     navigate("/login");
   }
 
   return (
-    <div>
-      <h1 style={{ fontSize: "50px" }}>Hey {name}</h1>
-      <button
-        style={{
-          fontSize: "30px",
-          height: "60px",
-          border: "none",
-          backgroundColor: "#fafafa",
-          color: "#ed6060",
-          fontWeight: "700",
-          width: "140px",
-          borderRadius: "5px",
-        }}
-        onClick={() => handleLogout()}
-      >
+    <div className="logout-container">
+      <h1>Hey {name}</h1>
+
+      <button className="logout-btn" onClick={handleLogout}>
         Logout
       </button>
     </div>

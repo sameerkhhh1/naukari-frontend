@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import axios from "axios";
+import * as Yup from "yup";
+import "./Admin.css";
 
 const Admin = () => {
-  const inputStyle = {
-    padding: "12px",
-    width: "300px",
-    marginBottom: "15px",
-    fontSize: "16px",
-    borderRadius: "6px",
-    border: "1px solid #ccc",
-  };
+  const jobSchema = Yup.object({
+    jobName: Yup.string().required("Job name required"),
+    companyName: Yup.string().required("Company name required"),
+    role: Yup.string().required("Role required"),
+    jobType: Yup.string().required("Job type required"),
+    exp: Yup.string().required("Experience required"),
+    salary: Yup.number().required("Salary required"),
+    location: Yup.string().required("Location required"),
+    description: Yup.string().required("Description required"),
+  });
 
   const [jobName, setJobName] = useState("");
   const [exp, setExp] = useState("");
@@ -26,39 +30,46 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // const iconArray = ["FaReact", "FaNodeJs", "FaLaptopCode", "FaPaintBrush"];
-
-    // const randomIcon = iconArray[Math.floor(Math.random() * iconArray.length)];
-
     const formData = {
       jobName,
       exp,
       salary,
-      location,
+      location: location.trim().toLowerCase(),
       role,
       jobType,
       description,
       companyName,
       skills: skills.split(" "),
       tags: tags.split(" "),
-      //   icon: randomIcon,
     };
 
     try {
+      await jobSchema.validate(formData);
+
       setLoading(true);
+
       const response = await axios.post(
-        "https://naukari-bakend.vercel.app/job/create",
+        `${process.env.REACT_APP_API_URL}/job/create`,
         formData,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        },
       );
 
       if (response.status === 200) {
         alert("Job Created Successfully");
       }
     } catch (error) {
-      alert("Error creating job");
-      console.log(error);
+      if (error.name === "ValidationError") {
+        alert(error.message);
+      } else {
+        alert("Error creating job");
+      }
     } finally {
       setLoading(false);
+
       setJobName("");
       setExp("");
       setSalary("");
@@ -75,42 +86,27 @@ const Admin = () => {
   if (loading) return <h1>Loading...</h1>;
 
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <div
-        style={{
-          width: "420px",
-          padding: "30px",
-          borderRadius: "10px",
-          backgroundColor: "#ffffff",
-          boxShadow: "0 4px 10px rgba(0,0,0,0.1)",
-          textAlign: "center",
-        }}
-      >
+    <div className="admin-container">
+      <div className="admin-card">
         <h1>Create Job</h1>
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="admin-form">
           <input
-            style={inputStyle}
+            className="admin-input"
             value={jobName}
             placeholder="Enter job name"
             onChange={(e) => setJobName(e.target.value)}
           />
+
           <input
-            style={inputStyle}
+            className="admin-input"
             value={companyName}
             placeholder="Enter company name"
             onChange={(e) => setCompanyName(e.target.value)}
           />
 
           <select
-            style={inputStyle}
+            className="admin-input"
             value={role}
             onChange={(e) => setRole(e.target.value)}
           >
@@ -122,7 +118,7 @@ const Admin = () => {
           </select>
 
           <select
-            style={inputStyle}
+            className="admin-input"
             value={jobType}
             onChange={(e) => setJobType(e.target.value)}
           >
@@ -134,7 +130,7 @@ const Admin = () => {
           </select>
 
           <select
-            style={inputStyle}
+            className="admin-input"
             value={exp}
             onChange={(e) => setExp(e.target.value)}
           >
@@ -146,53 +142,42 @@ const Admin = () => {
           </select>
 
           <input
-            style={inputStyle}
+            className="admin-input"
             type="number"
             value={salary}
             placeholder="Salary"
-            maxLength={1}
             onChange={(e) => setSalary(e.target.value)}
           />
 
           <input
-            style={inputStyle}
+            className="admin-input"
             value={location}
             placeholder="Location"
             onChange={(e) => setLocation(e.target.value)}
           />
 
           <textarea
-            style={{ ...inputStyle, height: "70px" }}
+            className="admin-input admin-textarea"
             value={description}
             placeholder="Job Description"
             onChange={(e) => setDescription(e.target.value)}
           />
 
           <input
-            style={inputStyle}
+            className="admin-input"
             value={skills}
             placeholder="Skills (space separated)"
             onChange={(e) => setSkills(e.target.value)}
           />
+
           <input
-            style={inputStyle}
+            className="admin-input"
             value={tags}
-            placeholder="Enter tags (space separated)"
+            placeholder="Enter tags"
             onChange={(e) => setTags(e.target.value)}
           />
-          <button
-            type="submit"
-            style={{
-              border: "none",
-              cursor: "pointer",
-              width: "130px",
-              padding: "10px",
-              color: "white",
-              backgroundColor: "green",
-              fontSize: "18px",
-              borderRadius: "10px",
-            }}
-          >
+
+          <button className="admin-btn" type="submit">
             Submit
           </button>
         </form>

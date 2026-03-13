@@ -1,60 +1,42 @@
 import "./App.css";
+import { Routes, Route } from "react-router-dom";
+
 import SignUp from "./Components/signUp";
 import Login from "./Components/login";
-import { Route, Routes } from "react-router-dom";
-
 import Admin from "./Components/admin";
 import Jobs from "./Components/Jobs";
-import Navbar from "./Navbar/navbar";
-import Logout from "./Components/logout";
 import Apply from "./Components/apply";
+import Logout from "./Components/logout";
 import JobDetail from "./Components/jobDetail";
+import Navbar from "./Navbar/navbar";
+
+function PrivateRoute({ children }) {
+  const token = localStorage.getItem("token");
+  return token ? children : <h1>Please Login First</h1>;
+}
+
+function AdminRoute({ children }) {
+  const token = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
+  return token && role === "admin" ? children : <h1>Admin Access Only</h1>;
+}
 
 function App() {
-  function PrivateRoute({ children }) {
-    let token = localStorage.getItem("token");
-    if (token) {
-      return children;
-    } else {
-      return <h1>Protected Route, Pass token to see this route</h1>;
-    }
-  }
-
-  function AdminRoute({ children }) {
-    let storedRole = localStorage.getItem("role");
-    let token = localStorage.getItem("token");
-    if (token && storedRole === "admin") {
-      return children;
-    } else {
-      return <h1>Protected Route, The admin only access this route</h1>;
-    }
-  }
-
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          height: "60px",
-        }}
-      >
+    <div className="app-container">
+      <div className="top-bar">
         <Navbar />
-        <h3 style={{ margin: "10px 80px 0px 0px ", fontSize: "30px" }}>
-          Dashboard
-          <hr
-            style={{
-              border: "3px solid #F2F1F4",
-              width: "80%",
-              margin: "20px auto",
-              height: "0px",
-            }}
-          ></hr>
-        </h3>
+
+        <div className="dashboard-title">
+          <span>Dashboard</span>
+          <hr />
+        </div>
       </div>
+
       <Routes>
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/" element={<SignUp />}></Route>
+        <Route path="/" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+
         <Route
           path="/jobs"
           element={
@@ -62,23 +44,8 @@ function App() {
               <Jobs />
             </PrivateRoute>
           }
-        ></Route>
-        <Route
-          path="/logout"
-          element={
-            <PrivateRoute>
-              <Logout />
-            </PrivateRoute>
-          }
-        ></Route>
-        <Route
-          path="/admin"
-          element={
-            <AdminRoute>
-              <Admin />
-            </AdminRoute>
-          }
-        ></Route>
+        />
+
         <Route
           path="/apply"
           element={
@@ -86,7 +53,26 @@ function App() {
               <Apply />
             </PrivateRoute>
           }
-        ></Route>
+        />
+
+        <Route
+          path="/logout"
+          element={
+            <PrivateRoute>
+              <Logout />
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/admin"
+          element={
+            <AdminRoute>
+              <Admin />
+            </AdminRoute>
+          }
+        />
+
         <Route path="/job/:id" element={<JobDetail />} />
       </Routes>
     </div>

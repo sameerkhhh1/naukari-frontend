@@ -1,0 +1,26 @@
+/* responsive fix */
+
+@media (max-width: 900px) {
+  .top-bar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 10px;
+  }
+
+  .dashboard-title {
+    margin-right: 20px;
+    font-size: 24px;
+  }
+
+  .dashboard-title hr {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .dashboard-title {
+    font-size: 20px;
+    margin-right: 0;
+  }
+}
