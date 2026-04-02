@@ -4,6 +4,7 @@ import "../Components/Jobs.css";
 import { FaReact, FaNodeJs, FaLaptopCode, FaPaintBrush } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Dashboard from "./dashboard";
+import Select from "react-select";
 
 const roleIconMap = {
   "Frontend Developer": FaReact,
@@ -12,6 +13,55 @@ const roleIconMap = {
   "UI/UX Designer": FaPaintBrush,
 };
 
+const options = [
+  { value: "", label: "Latest" },
+  { value: "HTL", label: "High to Low" },
+  { value: "LTH", label: "Low to High" },
+];
+const customStyles = {
+  control: (provided, state) => ({
+    ...provided,
+    width: "150px",
+    minHeight: "40px",
+    height: "40px",
+    borderRadius: "10px",
+    borderColor: state.isFocused ? "#4CAF50" : "#ccc",
+    boxShadow: "none",
+    cursor: "pointer",
+    fontSize: "14px",
+  }),
+
+  valueContainer: (provided) => ({
+    ...provided,
+    height: "40px",
+    padding: "0 10px",
+  }),
+
+  indicatorsContainer: (provided) => ({
+    ...provided,
+    height: "40px",
+  }),
+
+  menu: (provided) => ({
+    ...provided,
+    borderRadius: "10px",
+    overflow: "hidden",
+    width: "150px",
+  }),
+
+  option: (provided, state) => ({
+    ...provided,
+    padding: "10px",
+    fontSize: "14px",
+    backgroundColor: state.isSelected
+      ? "#4CAF50"
+      : state.isFocused
+        ? "#f2f2f2"
+        : "white",
+    color: state.isSelected ? "white" : "black",
+    cursor: "pointer",
+  }),
+};
 const Jobs = () => {
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
@@ -136,6 +186,7 @@ const Jobs = () => {
             <button className="apply-filter" onClick={render}>
               Apply Location
             </button>
+            <hr className="filter-line" />
 
             <h3>Experience</h3>
 
@@ -150,6 +201,7 @@ const Jobs = () => {
                 </button>
               ))}
             </div>
+            <hr className="filter-line" />
 
             <h3>Salary</h3>
 
@@ -166,6 +218,7 @@ const Jobs = () => {
             <button className="apply-filter" onClick={render}>
               Apply Salary
             </button>
+            <hr className="filter-line" />
 
             <h3>Job Type</h3>
 
@@ -197,7 +250,7 @@ const Jobs = () => {
             <div className="jobs-header">
               <span>Job Listings</span>
 
-              <select
+              {/* <select
                 className="jobs-select"
                 value={selectedSort}
                 onChange={(e) => setSelectedSort(e.target.value)}
@@ -205,7 +258,13 @@ const Jobs = () => {
                 <option value="">Latest</option>
                 <option value="HTL">High to Low</option>
                 <option value="LTH">Low to High</option>
-              </select>
+              </select> */}
+              <Select
+                options={options}
+                defaultValue={options[0]}
+                styles={customStyles}
+                onChange={(option) => setSelectedSort(option.value)}
+              />
             </div>
 
             <div className="jobs-grid">

@@ -55,6 +55,7 @@ const Dashboard = () => {
       <div className="recommended">
         <h2>Recommended Jobs</h2>
 
+        {/* Job 1 */}
         <div className="job-item">
           <FaUserCircle size={60} />
 
@@ -70,6 +71,52 @@ const Dashboard = () => {
               <div className="meta">
                 <IoLocationOutline />
                 <p>Mumbai</p>
+              </div>
+            </div>
+          </div>
+
+          <button className="apply-btn">Apply</button>
+        </div>
+
+        {/* Job 2 */}
+        <div className="job-item">
+          <FaUserCircle size={60} />
+
+          <div className="job-info">
+            <span className="job-title">Frontend Developer</span>
+
+            <div className="job-meta">
+              <div className="meta">
+                <FcGoogle />
+                <p>Amazon</p>
+              </div>
+
+              <div className="meta">
+                <IoLocationOutline />
+                <p>Delhi</p>
+              </div>
+            </div>
+          </div>
+
+          <button className="apply-btn">Apply</button>
+        </div>
+
+        {/* Job 3 */}
+        <div className="job-item">
+          <FaUserCircle size={60} />
+
+          <div className="job-info">
+            <span className="job-title">UI/UX Designer</span>
+
+            <div className="job-meta">
+              <div className="meta">
+                <FcGoogle />
+                <p>Microsoft</p>
+              </div>
+
+              <div className="meta">
+                <IoLocationOutline />
+                <p>Hyderabad</p>
               </div>
             </div>
           </div>

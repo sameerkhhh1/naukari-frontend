@@ -109,9 +109,17 @@
 .jobs-select {
   height: 40px;
   width: 120px;
-  max-width: 100%;
   font-size: 16px;
   cursor: pointer;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.jobs-select:focus {
+  border: 1px solid #4caf50;
+  box-shadow: 0 0 4px rgba(76, 175, 80, 0.5);
 }
 .jobs-grid {
   display: grid;
@@ -120,6 +128,13 @@
   margin-top: 20px;
 }
 
+.filter-line {
+  width: 100%;
+  height: 2px;
+  background: #ddd;
+  border: none;
+  /* margin: 15px 0; */
+}
 .job-card {
   width: 300px;
   padding: 20px;
@@ -140,6 +155,7 @@
 .job-icon {
   font-size: 32px;
   color: #1e63d5;
+  margin-top: 30px;
 }
 
 .job-meta {

@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 
 import SignUp from "./Components/signUp";
 import Login from "./Components/login";
@@ -22,15 +22,17 @@ function AdminRoute({ children }) {
 }
 
 function App() {
+  const location = useLocation();
   return (
     <div className="app-container">
       <div className="top-bar">
         <Navbar />
-
-        <div className="dashboard-title">
-          <span>Dashboard</span>
-          <hr />
-        </div>
+        {location.pathname === "/jobs" && (
+          <div className="dashboard-title">
+            <span>Dashboard</span>
+            <hr />
+          </div>
+        )}
       </div>
 
       <Routes>
